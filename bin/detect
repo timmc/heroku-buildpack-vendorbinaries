@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f $1/.vendor_urls ]; then
+if [ -f $1/.vendor_url_map ]; then
     echo "VendorBinaries"
     exit 0
 else
