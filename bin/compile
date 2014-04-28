@@ -15,7 +15,20 @@ fi
 
 cd $1
 
-while IFS=$'\t' read dpath url; do
-  echo Vendoring $url to $dpath | indent
-  curl -L --silent $url > $dpath
+while IFS=$'\t' read dpath how url; do
+  case "$how" in
+    file-http)
+      echo "Vendoring single file from $url to $dpath" | indent
+      mkdir --parents -- "`dirname -- "$dpath"`"
+      curl -L --silent "$url" > "$dpath"
+      ;;
+    targz-http)
+      echo "Vendoring tarball from $url into $dpath" | indent
+      mkdir --parents -- "$dpath"
+      curl -L --silent "$url" | tar xz --directory "$dpath"
+      ;;
+    *)
+      echo "Unrecognized provisioning type: $how"
+      exit 1
+  esac
 done < .vendor_url_map
