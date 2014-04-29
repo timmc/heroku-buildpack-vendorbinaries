@@ -14,7 +14,7 @@ Usage
     .vendor_url_map
     .buildpacks
 
-    $ heroku create --stack cedar --buildpack http://github.com/dollar/heroku-buildpack-multi.git#2a4cefc75
+    $ heroku create --stack cedar --buildpack http://github.com/dollar/heroku-buildpack-multi.git#467b87032
 
     $ git push heroku master
     ...
@@ -47,3 +47,10 @@ dir, creating directories as necessary.
 ```
 base/dir/	targz-http	https://s3.amazonaws.com/my-bucket/foo.tgz
 ```
+
+Changelog
+---------
+
+This is v2, which uses triplets instead of pairs so as to support more
+than just single-file drops. (v1 was not really released, and was
+buggy -- it failed to create parent directories of targets.)
